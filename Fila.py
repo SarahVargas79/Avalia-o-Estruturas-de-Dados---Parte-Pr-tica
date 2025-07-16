@@ -1,5 +1,5 @@
 from No import No
-from Apartamento import Apartatamento
+from Apartamento import Apartamento
 from Torre import Torre
 
 
@@ -8,8 +8,9 @@ class Fila:
         self.inicio = None
         self.fim = None
 
-    def cadastrarApt(self, id, num_apt, num_vaga, torre):
-        apt = Apartatamento(id, num_apt, num_vaga, torre)
+    def cadastrarApt(self, id, num_apt, num_vaga, torre_id, nome_torre, end_torre):
+        torre = Torre(torre_id, nome_torre, end_torre)
+        apt = Apartamento(id, num_apt, num_vaga, torre)
         nodo = No(apt)
 
         if self.inicio is None:
@@ -19,25 +20,30 @@ class Fila:
         self.fim = nodo
 
         print(
-            f"\nVeículo do morador da torre '{torre}', prédio '{apt.id}', nº '{apt.num_apt}' do box '{apt.num_vaga}' adicionado na fila de espera!"
+            f"\nApartamento ID '{apt.id}' da Torre '{torre.nome}' adicionado na fila de espera!\n"
         )
         self.imprimir()
 
     def imprimir(self):
-        print("\n--- GARAGEM PRIVADA - FILA DE ESPERA ---")
-        if self.inicio_apts is None:
+        print("Apartamentos na fila de espera:")
+        print("-" * 40)
+        if self.inicio is None:
             print("Fila de espera vazia!")
         else:
-            aux = self.inicio_apts
+            aux = self.inicio
             while aux:
                 print(aux.dado)
+                print("-" * 42)
                 aux = aux.prox
 
     def remover(self):
-        if self.inicio is not None:
+        if self.inicio is None:
             print("\nNenhum apartamento na fila de espera.")
         else:
-            apt = self.inicio_apts.dado = self.inicio.prox
-            self.inicio_apts = self.fim_apts.prox
-            print(f"Apartamento da vaga nº: {apt.num_vaga} retirado do box!")
+            apt = self.inicio.dado
+            self.inicio = self.inicio.prox
+            if self.inicio is None:
+                self.fim = None
+            print(
+                f"Apartamento ID '{apt.id}' da vaga nº {apt.num_vaga} retirado do box!\n")
             self.imprimir()
