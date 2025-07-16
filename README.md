@@ -1,1 +1,1 @@
-# Avalia-o-Estruturas-de-Dados---Parte-Pr-tica
+# Avalia-o-Estruturas-de-Dados---Parte-Prática
